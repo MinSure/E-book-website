@@ -1,0 +1,32 @@
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/base.css' %}"/>
+
+<!--logo和搜索-->
+<a href="/books/index/"><img class="img-align1" src="{% static 'image/logo.jpg' %}"></a>
+<div class="searchForm">
+<form action="/search/">
+    <input type="text" name="q" placeholder="搜索">
+    <button type="submit"></button>
+</form>
+</div>
+
+<!--登录 登出 书架-->
+<div class="in">
+        <a href="/users/my_collects/"><img src="{% static 'image/5.png' %}"  width="30px"  height="50px"></a>
+        &nbsp; &nbsp; &nbsp;
+        {% if user %}
+        <a href="/users/home/"><img src="{% static user.image %}"  width="30px"  height="50px"></a>
+        {% else %}
+        <a href="/users/login/"><img src="{% static 'image/2.png' %}"  width="30px" ></a>
+        {% endif %}
+</div>
+
+<!--首页 分类-->
+<br><br>
+<div class="category">
+    <a href="/books/index/"><button class="category_first">首页</button></a>
+    <a href="/books/types/1" target="_blanket"><button >推理悬疑</button></a>
+    <a href="/books/types/2" target="_blanket"><button >科幻玄幻</button></a>
+    <a href="/books/types/3" target="_blanket"><button >都市言情</button></a>
+    <a href="/books/paihang/"><button>排行榜</button></a>
+</div>

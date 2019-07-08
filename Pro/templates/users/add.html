@@ -1,0 +1,75 @@
+
+<!DOCTYPE html>
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>上传</title>
+    <link rel="stylesheet" href="../../static/css/shangchuanshu.css">
+</head>
+<body>
+<div class="wel" id="background-3"></div>
+<div class="wel" id="box">
+    <div class="box-1 lefp"></div>
+    <div class="box-1">
+        <div class="righp"></div>
+    </div>
+</div>
+<!--荧光点点-->
+<div class="wel" id="git"></div>
+<!--登录注册表-->
+<div class="wel" id="from">
+    <div class="box-2 le-1">
+            <div class="flrg">
+                 <h1>添加书</h1>
+                 <div class="a">
+                    <div class="hr"></div>
+                </div>
+                <form action="/books/add/" method="POST" enctype="multipart/form-data">
+                        {% csrf_token %}
+                <a href="/books/index/" class="file">返回首页 
+                    <input type="button">  
+                </a> 
+                <div class="a">
+                    <input type="text" class="in-1" placeholder="请输入书籍标题" name="title">
+                </div>
+                <div class="a">
+                    <input type="text" class="in-1" placeholder="请输入书籍作者" name="author">
+                </div>
+              <div class="a"><div class="in-1">
+                <select name="type_id" id="">
+                   <option value ="1">请选择书籍类型</option>
+                   <option value ="2">Saab</option>
+                   <option value="3">Opel</option>
+                   <option value="4">Audi</option>
+                </select>
+                </div></div>
+                
+                <div class="a">
+                <a href=".static/css/shangchuanshu.css" class="file">选择上传文档  
+                    <input type="file" name="upfiletxt" id="u1">  
+                </a> 
+                <a href=".static/css/shangchuanshu.css" class="file">选择上传封面  
+                    <input type="file" name="upfiletxt" id="u2">  
+                </a><br><br>
+                    <!-- <form action="" method="get"> 标签
+
+     <ul><input type="checkbox" id="checkbox-1-1" class="regular-checkbox" />stytle1<label for="checkbox-1-1"></label></ul>
+     <ul><input type="checkbox" id="checkbox-1-2" class="regular-checkbox" />stytle1<label for="checkbox-1-2"></label></ul>
+     <ul><input type="checkbox" id="checkbox-1-3" class="regular-checkbox" />stytle1<label for="checkbox-1-3"></label></ul>
+     <ul><input type="checkbox" id="checkbox-1-4" class="regular-checkbox" />stytle1<label for="checkbox-1-4"></label></ul>
+                   </form>  -->
+                <div class="in-1">
+                <textarea rows="3" cols="29" class="in-1" id="ziti">请输入简单介绍
+                </textarea> 
+                </div><br><br><br>
+                <button type="button">添加</button>
+            </div>
+        </form>
+                <div class="a">
+                    <div class="hr"></div>
+                </div>
+            </div>
+            {{ msg }}
+       <!--  </form> -->
+    </div>
+</div>
+
+</body></html>
