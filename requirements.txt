@@ -1,4 +1,0 @@
-django
-django-haystack
-jieba
-whoosh
