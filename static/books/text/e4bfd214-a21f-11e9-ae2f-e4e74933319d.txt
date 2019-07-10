@@ -1,0 +1,10 @@
+python manage.py runserver     djangoproject    finalproject
+
+django-admin startproject proj2
+
+python manage.py startapp app
+
+javascript:alert(document.cookie)
+
+pyhton manage.py makemigrations
+python manage.py migrate

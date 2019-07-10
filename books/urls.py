@@ -9,7 +9,11 @@ urlpatterns = [
     path('goupdate/<int:book_id>/',views.goupdate),
     path('update/',views.update),
     path('<int:book_id>',views.detail),
-    path('types/<int:type_id>',views.types),
     path('download/<int:book_id>',views.filedownload),
     path('paihang/',views.paihang),
+    path('goto_category/<int:type_id>/<str:order_by>', views.go_to_category),
+    path('chapters/<str:bookname>/',views.chapters),
+    path('read/<str:bookname>/<int:chapters_id>/',views.read),
+    path('shangchuang/', views.shangchuang),
+    path('upload/',views.uploadGrade),
 ]

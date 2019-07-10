@@ -1,5 +1,6 @@
 from django.shortcuts import render,redirect
 from django.http import HttpResponse,StreamingHttpResponse
+from django.core.paginator import Paginator,EmptyPage,PageNotAnInteger
 
 from users.models import User
 from books.models import Book
@@ -15,7 +16,7 @@ def login(request):
         save_pwd = request.POST.get('save_pwd', '') #是否保存密码
         
         #数据库查找
-        user_li = User.objects.filter(user_name=account)
+        user_li = User.objects.filter(user_name=account,password=pwd)
         # cur_user = User()
         # all_user = User.objects.all()
         # for user in all_user:
@@ -33,17 +34,28 @@ def login(request):
             if(save_pwd=='on'):
                 response.set_signed_cookie('password',pwd,salt='bbb')
 
+            response.set_cookie('headpic_path','/static/'+user_li[0].image)
+
             request.session['account'] = account
             return response
     else:
         account = request.get_signed_cookie('account','','aaa')
+        if account:
+            user = User.objects.filter(user_name=account)[0]
+            headpic_path = user.image
+        else:
+            headpic_path = None
         password = request.get_signed_cookie('password','','bbb')
-        return render(request,'users/login.html',{'account':account,'password':password})
+        return render(request,'users/login.html',{'account':account,'password':password,'headpic_path':headpic_path})
 
 def logout(request):
+    #删除cookie
+    response = redirect('/users/login/')
+    response.delete_cookie('headpic_path')
+    
     #删除session
     del request.session['account']
-    return redirect('/users/login/')
+    return response
 
 def check_account(request,user_name):
     user_li = User.objects.filter(user_name=user_name)
@@ -90,6 +102,17 @@ def personal_comments(request):
     user = User.objects.filter(user_name=user_name)[0]
 
     comment_li =Comment.objects.filter(userName=user)
+
+    paginator = Paginator(comment_li,7) #每页显示7本
+    #接受客户端发送的页码:
+    page = request.GET.get('page',1)
+    #
+    try:
+        comment_li=paginator.page(page)
+    except EmptyPage:
+        comment_li= paginator.page(1)
+    except PageNotAnInteger:
+        comment_li = paginator.page(paginator.num_pages)
 
     return render(request,'users/commentpage.html',{'comment_li':comment_li,'user':user})
 
